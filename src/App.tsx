@@ -155,13 +155,13 @@ export default function App() {
       Harmony Garden
     </h3>
 
-    <p className="mt-3 text-sm text-slate-500">
+    <p className="mt-3 text-sm text-[#176B87]">
       Gedu Estate, Shaki
     </p>
   </div>
 
   {/* LIVE GOOGLE MAP */}
-  <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-[#D8B879] shadow-md">
+  <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-[#176B87] shadow-md">
 
     <iframe
       title="Harmony Garden Wedding Venue Map"

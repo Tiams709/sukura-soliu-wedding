@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [opened, setOpened] = useState(false);
-  const [musicOn, setMusicOn] = useState(false);
+  // const [musicOn, setMusicOn] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -10,15 +10,15 @@ export default function App() {
     seconds: 0,
   });
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    guests: "1",
-    attendance: "yes",
-    message: "",
-  });
+  // const [form, setForm] = useState({
+  //   name: "",
+  //   phone: "",
+  //   guests: "1",
+  //   attendance: "yes",
+  //   message: "",
+  // });
 
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -39,13 +39,13 @@ export default function App() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const handleRSVP = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // const handleRSVP = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
 
-    // Connect this form to a backend or form service
-    // to save guest responses.
-    setSubmitted(true);
-  };
+  //   // Connect this form to a backend or form service
+  //   // to save guest responses.
+  //   setSubmitted(true);
+  // };
 
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-white text-slate-800">
@@ -97,7 +97,7 @@ export default function App() {
   {/* RSVP Button - Top Right */}
   <div className="relative z-20 flex justify-end px-6 py-6 sm:px-12">
    <a
-  href="https://forms.gle/GWmT3DPcx6nMJ2g36"
+  href="https://forms.gle/Ph9gFczWmUiuBV2s7"
   target="_blank"
   rel="noopener noreferrer"
   className="rounded-full bg-[#176B87] px-8 py-3 text-sm tracking-widest text-white transition hover:bg-[#12556C]"
@@ -268,7 +268,7 @@ export default function App() {
   </p>
 
   <a
-    href="YOUR_GOOGLE_FORM_LINK"
+    href="https://forms.gle/Ph9gFczWmUiuBV2s7"
     target="_blank"
     rel="noopener noreferrer"
     className="mt-8 inline-block bg-[#176B87] px-10 py-4

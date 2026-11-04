@@ -85,7 +85,7 @@ export default function App() {
   id="invitation"
   className="relative min-h-screen w-full overflow-hidden"
   style={{
-    backgroundImage: "url('/wedding-bg.jpeg')",
+    backgroundImage: "url('/sukurabg.jpeg')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

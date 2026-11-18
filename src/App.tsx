@@ -331,14 +331,15 @@ export default function App() {
         }
       `}</style>
       <audio ref={audioRef} src="/music.mp3" loop />
-
-      <button
-        onClick={toggleMusic}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md shadow-lg flex items-center justify-center text-rose-700 text-xl"
-        aria-label="Toggle music"
-      >
-        {musicOn ? "🔊" : "🔇"}
-      </button>
+      {opened && (
+        <button
+          onClick={toggleMusic}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md shadow-lg flex items-center justify-center text-rose-700 text-xl"
+          aria-label="Toggle music"
+        >
+          {musicOn ? "🔊" : "🔇"}
+        </button>
+      )}
     </main>
   );
 }

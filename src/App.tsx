@@ -1,8 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function App() {
   const [opened, setOpened] = useState(false);
-  // const [musicOn, setMusicOn] = useState(false);
+  const [musicOn, setMusicOn] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toggleMusic = async () => {
+    if (!audioRef.current) return;
+
+    if (musicOn) {
+      audioRef.current.pause();
+      setMusicOn(false);
+    } else {
+      await audioRef.current.play();
+      setMusicOn(true);
+    }
+  };
+ useEffect(() => {
+   const audio = audioRef.current;
+   if (!audio) return;
+
+   const startMusic = () => {
+     audio
+       .play()
+       .then(() => setMusicOn(true))
+       .catch(() => setMusicOn(false));
+   };
+
+   startMusic();
+
+   document.addEventListener("click", startMusic, { once: true });
+
+   return () => {
+     document.removeEventListener("click", startMusic);
+   };
+ }, []);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -80,204 +112,188 @@ export default function App() {
             />
           </div>
 
-        {/* SECTION 2: INVITATION */}
-<section
-  id="invitation"
-  className="relative min-h-screen w-full overflow-hidden"
-  style={{
-    backgroundImage: "url('/sukurabg.jpeg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  }}
->
-  {/* Background overlay */}
-  {/* <div className="absolute inset-0 bg-white/40" /> */}
+          {/* SECTION 2: INVITATION */}
+          <section
+            id="invitation"
+            className="relative min-h-screen w-full overflow-hidden"
+            style={{
+              backgroundImage: "url('/sukurabg.jpeg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            {/* Background overlay */}
+            {/* <div className="absolute inset-0 bg-white/40" /> */}
 
-  {/* RSVP Button - Top Right */}
-  <div className="relative z-20 flex justify-end px-6 py-6 sm:px-12">
-   <a
-  href="https://forms.gle/Ph9gFczWmUiuBV2s7"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="rounded-full bg-[#176B87] px-8 py-3 text-sm tracking-widest text-white transition hover:bg-[#12556C]"
->
-  RSVP
-</a>
-  </div>
+            {/* RSVP Button - Top Right */}
+            <div className="relative z-20 flex justify-end px-6 py-6 sm:px-12">
+              <a
+                href="https://forms.gle/Ph9gFczWmUiuBV2s7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-[#176B87] px-8 py-3 text-sm tracking-widest text-white transition hover:bg-[#12556C]"
+              >
+                RSVP
+              </a>
+            </div>
 
-  {/* Invitation Content */}
-  <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-5 text-center">
+            {/* Invitation Content */}
+            <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-5 text-center">
+              <p className="mb-8 text-xs uppercase tracking-[0.35em] text-[#176B87]">
+                Together with our families
+              </p>
 
-    <p className="mb-8 text-xs uppercase tracking-[0.35em] text-[#176B87]">
-      Together with our families
-    </p>
+              <p className="mb-6 text-xs uppercase tracking-[0.3em] text-[#176B87]">
+                Wedding Invitation
+              </p>
 
-    <p className="mb-6 text-xs uppercase tracking-[0.3em] text-[#176B87]">
-      Wedding Invitation
-    </p>
+              <h1 className="font-serif text-4xl leading-tight text-[#176B87] sm:text-6xl">
+                Sukura Lassissi
+              </h1>
 
-    <h1 className="font-serif text-4xl leading-tight text-[#176B87] sm:text-6xl">
-      Sukura Lassissi
-    </h1>
+              <p className="my-5 font-serif text-3xl italic text-[#176B87]">
+                &
+              </p>
 
-    <p className="my-5 font-serif text-3xl italic text-[#176B87]">
-      &
-    </p>
+              <h2 className="font-serif text-4xl leading-tight text-[#176B87] sm:text-6xl">
+                Soliu Adewale
+              </h2>
 
-    <h2 className="font-serif text-4xl leading-tight text-[#176B87] sm:text-6xl">
-      Soliu Adewale
-    </h2>
-
-    <p className="mt-8 font-serif text-sm italic text-[#176B87]">
-      We would be delighted to celebrate our love with you.
-    </p>
-
-  </div>
-</section>
+              <p className="mt-8 font-serif text-sm italic text-[#176B87]">
+                We would be delighted to celebrate our love with you.
+              </p>
+            </div>
+          </section>
 
           {/* SECTION 3: VENUE */}
           {/* SECTION 3: WEDDING VENUE */}
-<section
-  id="venue"
-  className="bg-[#FDF9F8] px-5 py-16 text-center"
->
-  <p className="text-xs uppercase tracking-[0.35em] text-[#176B87]">
-    Join Us
-  </p>
+          <section id="venue" className="bg-[#FDF9F8] px-5 py-16 text-center">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#176B87]">
+              Join Us
+            </p>
 
-  <h2 className="mt-4 font-serif text-4xl text-[#176B87]">
-    Wedding Venue
-  </h2>
+            <h2 className="mt-4 font-serif text-4xl text-[#176B87]">
+              Wedding Venue
+            </h2>
 
-  <div className="mt-10">
-    <h3 className="font-serif text-2xl text-[#176B87]">
-      Harmony Garden
-    </h3>
+            <div className="mt-10">
+              <h3 className="font-serif text-2xl text-[#176B87]">
+                Harmony Garden
+              </h3>
 
-    <p className="mt-3 text-sm text-[#176B87]">
-      Gedu Estate, Shaki
-    </p>
-  </div>
+              <p className="mt-3 text-sm text-[#176B87]">Gedu Estate, Shaki</p>
+            </div>
 
-  {/* LIVE GOOGLE MAP */}
-  <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-[#176B87] shadow-md">
+            {/* LIVE GOOGLE MAP */}
+            <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-[#176B87] shadow-md">
+              <iframe
+                title="Harmony Garden Wedding Venue Map"
+                src="https://www.google.com/maps?q=Harmony%20Garden%2C%20Gedu%20Estate%2C%20Shaki&output=embed"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
 
-    <iframe
-      title="Harmony Garden Wedding Venue Map"
-      src="https://www.google.com/maps?q=Harmony%20Garden%2C%20Gedu%20Estate%2C%20Shaki&output=embed"
-      width="100%"
-      height="400"
-      style={{ border: 0 }}
-      loading="lazy"
-      allowFullScreen
-      referrerPolicy="no-referrer-when-downgrade"
-    />
-
-  </div>
-
-  {/* GET DIRECTIONS LINK */}
-  <a
-    href="https://www.google.com/maps/search/?api=1&query=Harmony%20Garden%2C%20Gedu%20Estate%2C%20Shaki"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-7 inline-flex items-center gap-2
+            {/* GET DIRECTIONS LINK */}
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Harmony%20Garden%2C%20Gedu%20Estate%2C%20Shaki"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex items-center gap-2
       text-sm font-medium tracking-widest text-[#176B87]
       underline underline-offset-4"
-  >
-    OPEN DIRECTIONS IN GOOGLE MAPS ↗
-  </a>
+            >
+              OPEN DIRECTIONS IN GOOGLE MAPS ↗
+            </a>
+          </section>
 
-</section>
+          {/* SECTION 4: COUNTDOWN */}
+          <section
+            id="countdown"
+            className="min-h-screen bg-[#F1F9FC] px-5 py-8 text-center"
+          >
+            {/* Countdown Heading */}
+            <div className="mx-auto max-w-3xl pt-16 sm:pt-24">
+              <h2 className="font-serif text-4xl italic text-[#176B87] sm:text-6xl">
+                Counting Down
+              </h2>
 
-       {/* SECTION 4: COUNTDOWN */}
-<section
-  id="countdown"
-  className="min-h-screen bg-[#F1F9FC] px-5 py-8 text-center"
->
-  
+              <p className="mt-3 text-xs tracking-[0.4em] text-[#176B87]">
+                THE BIG DAY
+              </p>
 
+              {/* Decorative Divider */}
+              <div className="my-12 flex items-center justify-center gap-4">
+                <span className="h-px w-12 bg-[#176B87]" />
+                <span className="text-xl text-[#176B87]">✦</span>
+                <span className="h-px w-12 bg-[#176B87]" />
+              </div>
 
-  {/* Countdown Heading */}
-  <div className="mx-auto max-w-3xl pt-16 sm:pt-24">
-    <h2 className="font-serif text-4xl italic text-[#176B87] sm:text-6xl">
-      Counting Down
-    </h2>
+              {/* Existing Live Countdown */}
+              <div className="mx-auto grid max-w-2xl grid-cols-4 gap-2 sm:gap-8">
+                {[
+                  ["DAYS", timeLeft.days],
+                  ["HOURS", timeLeft.hours],
+                  ["MINUTES", timeLeft.minutes],
+                  ["SECONDS", timeLeft.seconds],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex flex-col items-center">
+                    <p className="font-serif text-3xl text-[#176B87] sm:text-6xl">
+                      {String(value).padStart(2, "0")}
+                    </p>
 
-    <p className="mt-3 text-xs tracking-[0.4em] text-[#176B87]">
-      THE BIG DAY
-    </p>
+                    <p
+                      className="mt-3 text-[9px] tracking-[0.2em]
+            text-slate-500 sm:text-xs"
+                    >
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-    {/* Decorative Divider */}
-    <div className="my-12 flex items-center justify-center gap-4">
-      <span className="h-px w-12 bg-[#176B87]" />
-      <span className="text-xl text-[#176B87]">✦</span>
-      <span className="h-px w-12 bg-[#176B87]" />
-    </div>
+              {/* Couple Details */}
+              <div className="mt-20">
+                <p className="font-serif text-2xl italic text-[#176B87]">
+                  Sukura & Soliu
+                </p>
 
-    {/* Existing Live Countdown */}
-    <div className="mx-auto grid max-w-2xl grid-cols-4 gap-2 sm:gap-8">
-      {[
-        ["DAYS", timeLeft.days],
-        ["HOURS", timeLeft.hours],
-        ["MINUTES", timeLeft.minutes],
-        ["SECONDS", timeLeft.seconds],
-      ].map(([label, value]) => (
-        <div key={label} className="flex flex-col items-center">
-          <p className="font-serif text-3xl text-[#176B87] sm:text-6xl">
-            {String(value).padStart(2, "0")}
-          </p>
+                <p className="mt-3 text-xs tracking-[0.25em] text-[#176B87]">
+                  DECEMBER 26, 2026
+                </p>
+              </div>
+            </div>
+          </section>
 
-          <p className="mt-3 text-[9px] tracking-[0.2em]
-            text-slate-500 sm:text-xs">
-            {label}
-          </p>
-        </div>
-      ))}
-    </div>
+          {/* RSVP FORM SECTION */}
+          <section id="rsvp" className="bg-white px-5 py-20 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#176B87]">
+              Kindly respond
+            </p>
 
-    {/* Couple Details */}
-    <div className="mt-20">
-      <p className="font-serif text-2xl italic text-[#176B87]">
-        Sukura & Soliu
-      </p>
+            <h2 className="mt-3 font-serif text-4xl text-[#176B87]">RSVP</h2>
 
-      <p className="mt-3 text-xs tracking-[0.25em] text-[#176B87]">
-        DECEMBER 26, 2026
-      </p>
-    </div>
-  </div>
-</section>
+            <p className="mx-auto mt-4 max-w-md text-sm text-[#176B87]">
+              We would love to celebrate this special day with you. Kindly
+              confirm your attendance.
+            </p>
 
-{/* RSVP FORM SECTION */}
-<section
-  id="rsvp"
-  className="bg-white px-5 py-20 text-center"
->
-  <p className="text-xs uppercase tracking-[0.3em] text-[#176B87]">
-    Kindly respond
-  </p>
-
-  <h2 className="mt-3 font-serif text-4xl text-[#176B87]">
-    RSVP
-  </h2>
-
-  <p className="mx-auto mt-4 max-w-md text-sm text-[#176B87]">
-    We would love to celebrate this special day with you.
-    Kindly confirm your attendance.
-  </p>
-
-  <a
-    href="https://forms.gle/Ph9gFczWmUiuBV2s7"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-8 inline-block bg-[#176B87] px-10 py-4
+            <a
+              href="https://forms.gle/Ph9gFczWmUiuBV2s7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-block bg-[#176B87] px-10 py-4
       text-sm tracking-widest text-white transition
       hover:bg-[#12536A]"
-  >
-    CONFIRM ATTENDANCE
-  </a>
-</section>
+            >
+              CONFIRM ATTENDANCE
+            </a>
+          </section>
 
           <footer className="bg-[#176B87] px-5 py-8 text-center text-white">
             <p className="font-serif text-2xl italic">Sukura & Soliu</p>
@@ -314,6 +330,15 @@ export default function App() {
           }
         }
       `}</style>
+      <audio ref={audioRef} src="/music.mp3" loop />
+
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md shadow-lg flex items-center justify-center text-rose-700 text-xl"
+        aria-label="Toggle music"
+      >
+        {musicOn ? "🔊" : "🔇"}
+      </button>
     </main>
   );
 }
